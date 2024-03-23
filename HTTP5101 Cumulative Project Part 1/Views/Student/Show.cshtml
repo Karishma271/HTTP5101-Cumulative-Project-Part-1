@@ -1,0 +1,13 @@
+﻿@model HTTP5101_Cumulative_Project_Part_1.Models.Students
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show</h2>
+<a class="navlink" href="/Student/List">Back To Student</a>
+<div id="containershow">
+    <h2>Name: @Model.StudentFname @Model.StudentLname  </h2>
+    <p>Student Id: @Model.StudentNumber</p>
+    <p>Enrolment Year: @Model.EnrolDate</p>
+
+</div>
