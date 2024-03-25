@@ -14,10 +14,10 @@ namespace HTTP5101_Cumulative_Project_Part_1.Controllers
         {
             return View();
         }
-        public ActionResult List()
+        public ActionResult List(string SearchKey = null)
         {
             ClassDataController controller = new ClassDataController();
-            IEnumerable<Class> Classes = controller.ListClass();
+            IEnumerable<Class> Classes = controller.ListClass(SearchKey);
             return View(Classes);
         }
 

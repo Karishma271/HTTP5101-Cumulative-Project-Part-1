@@ -20,7 +20,7 @@ namespace HTTP5101_Cumulative_Project_Part_1.Controllers
         /// A list of Class (first names and last names)
         /// </returns>
         [HttpGet]
-        public IEnumerable<Class> ListClass()
+        public IEnumerable<Class> ListClass(string SearchKey = null)
         {
             //Create an instance of a connection
             MySqlConnection Conn = DbCon.AccessDatabase();
@@ -32,8 +32,10 @@ namespace HTTP5101_Cumulative_Project_Part_1.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             //SQL QUERY
-            cmd.CommandText = "Select * from classes where lower(classcode) like lower(@key) ";
-            
+            cmd.CommandText = "SELECT * FROM Classes where lower(ClassName) like lower(@key) or lower(ClassCode) like lower(@key)";
+
+            //A extra step is done to protect the database against SQL injection, SearchKey is replaced by @key, so malacious inputs cannot execute.
+            cmd.Parameters.AddWithValue("@key", "%" + SearchKey + "%");
             cmd.Prepare();
 
             //Gather Result Set of Query into a variable

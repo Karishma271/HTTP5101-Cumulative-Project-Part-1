@@ -22,7 +22,7 @@ namespace HTTP5101_Cumulative_Project_Part_1.Controllers
         /// A list of Teachers (first names and last names)
         /// </returns>
         [HttpGet]
-        public IEnumerable<Teacher> ListTeacher()
+        public IEnumerable<Teacher> ListTeacher(string SearchKey = null)
         {
             //Create an instance of a connection
             MySqlConnection Conn = DbCon.AccessDatabase();
@@ -33,8 +33,12 @@ namespace HTTP5101_Cumulative_Project_Part_1.Controllers
             //Establish a new command (query) for our database
             MySqlCommand cmd = Conn.CreateCommand();
 
-            //SQL QUERY
-            cmd.CommandText = "Select * from Teachers";
+           //SQL QUERY
+            cmd.CommandText = "Select * from teachers where lower(teacherfname) like lower(@key) or lower(teacherlname) like lower(@key) or lower(concat (teacherfname, ' ', teacherlname)) like lower(@key)";
+
+            //A extra step is done to protect the database against SQL injection, SearchKey is replaced by @key, so malacious inputs cannot execute.
+            cmd.Parameters.AddWithValue("@key", "%" + SearchKey + "%");
+            cmd.Prepare();
 
             //Gather Result Set of Query into a variable
             MySqlDataReader ResultSet = cmd.ExecuteReader();

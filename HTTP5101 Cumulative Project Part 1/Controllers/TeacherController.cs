@@ -16,10 +16,11 @@ namespace HTTP5101_Cumulative_Project_Part_1.Controllers
             return View();
         }
         //GET : /Teacher/List
-        public ActionResult List()
+        public ActionResult List(string SearchKey = null)
         {
+
             TeacherDataController controller = new TeacherDataController();
-            IEnumerable<Teacher> Teachers = controller.ListTeacher();
+            IEnumerable<Teacher> Teachers = controller.ListTeacher(SearchKey);
             return View(Teachers);
         }
 

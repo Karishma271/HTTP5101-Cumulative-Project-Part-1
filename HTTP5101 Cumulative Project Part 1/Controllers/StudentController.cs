@@ -15,10 +15,11 @@ namespace HTTP5101_Cumulative_Project_Part_1.Controllers
             return View();
         }
         //GET : Student/List
-        public ActionResult List()
+        public ActionResult List(string SearchKey = null)
         {
+
             StudentDataController controller = new StudentDataController();
-            IEnumerable<Students> Students = controller.ListStudent();
+            IEnumerable<Students> Students = controller.ListStudent(SearchKey);
             return View(Students);
         }
 
@@ -27,7 +28,7 @@ namespace HTTP5101_Cumulative_Project_Part_1.Controllers
         {
             StudentDataController controller = new StudentDataController();
             Students NewStudent = controller.FindStudent(id);
-
+            
             return View(NewStudent);
         }
 
