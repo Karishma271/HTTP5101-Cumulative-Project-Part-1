@@ -2,18 +2,14 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-
 
 namespace HTTP5101_Cumulative_Project_Part_1.Controllers
 {
     public class ClassDataController : ApiController
     {
         private SchoolDbContext DbCon = new SchoolDbContext();
-
 
         //This Controller Will access the Class table of our school database.
         /// <summary>
@@ -36,7 +32,9 @@ namespace HTTP5101_Cumulative_Project_Part_1.Controllers
             MySqlCommand cmd = Conn.CreateCommand();
 
             //SQL QUERY
-            cmd.CommandText = "Select * from classes";
+            cmd.CommandText = "Select * from classes where lower(classcode) like lower(@key) ";
+            
+            cmd.Prepare();
 
             //Gather Result Set of Query into a variable
             MySqlDataReader ResultSet = cmd.ExecuteReader();
@@ -48,11 +46,11 @@ namespace HTTP5101_Cumulative_Project_Part_1.Controllers
             while (ResultSet.Read())
             {
                 //Access Column information by the DB column name as an index
-                string ClassId = ResultSet["classid"].ToString();
+                int ClassId = Convert.ToInt32(ResultSet["classid"]);
                 string ClassCode = ResultSet["classcode"].ToString();
-                string TeacherId = ResultSet["teacherid"].ToString();
-                string StartDate = ResultSet["startdate"].ToString();
-                string FinishDate = ResultSet["finishdate"].ToString();
+                int TeacherId = Convert.ToInt32(ResultSet["teacherid"]);
+                DateTime StartDate = Convert.ToDateTime(ResultSet["startdate"]);
+                DateTime FinishDate = Convert.ToDateTime(ResultSet["finishdate"]);
                 string ClassName = ResultSet["classname"].ToString();
 
                 Class NewClass = new Class();
@@ -105,11 +103,11 @@ namespace HTTP5101_Cumulative_Project_Part_1.Controllers
                 //Access Column information by the DB column name as an index
 
 
-                string ClassId = ResultSet["classid"].ToString();
+                int ClassId = Convert.ToInt32(ResultSet["classid"]);
                 string ClassCode = ResultSet["classcode"].ToString();
-                string TeacherId = ResultSet["teacherid"].ToString();
-                string StartDate = ResultSet["startdate"].ToString();
-                string FinishDate = ResultSet["finishdate"].ToString();
+                int TeacherId = Convert.ToInt32(ResultSet["teacherid"]);
+                DateTime StartDate = Convert.ToDateTime(ResultSet["startdate"]);
+                DateTime FinishDate = Convert.ToDateTime(ResultSet["finishdate"]);
                 string ClassName = ResultSet["classname"].ToString();
 
 

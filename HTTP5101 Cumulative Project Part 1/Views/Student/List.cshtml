@@ -9,12 +9,22 @@
     }
 
 
-    <div id="containerlist">
-        <h2>List of Students</h2>
-        @foreach (var student in Model)
-        {
-            <div class="listitem row">
-                <div class="col-md-12"><a href="/Student/Show/@student.StudentId">@student.StudentFname @student.StudentLname</a></div>
-            </div>
-        }
-    </div>
+                      <div id="containerlist">
+                          <h2>List of Students</h2>
+                          <p>Please click the link to check the detail of class</p>
+                          <form action="List" method="GET">
+                              <input type="text" name="searchKey" />
+                              <input type="submit" name="search" />
+                          </form>
+                          @foreach (var student in Model)
+                          {
+                              <div class="listitem row">
+                                  <div class="col-md-12"><a href="/Student/Show/@student.StudentId">@student.StudentFname @student.StudentLname</a></div>
+                              </div>
+                          }
+                      </div>
+
+   
+    
+   
+

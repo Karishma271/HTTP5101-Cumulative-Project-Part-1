@@ -1,4 +1,4 @@
-﻿@Model IEnumerable<HTTP5101_Cumulative_Project_Part_1.Models.Teachers>
+﻿@Model IEnumerable<HTTP5101_Cumulative_Project_Part_1.Models.Teacher>
     {
 
     }
@@ -10,6 +10,12 @@
 
                       <div id="containerlist">
                           <h2>List of Teachers</h2>
+                          <p>Click the link for the detail of a teacher</p>
+                          <form action="List" method="GET">
+                              <input type="text" name="searchKey" />
+                              <input type="submit" value="Search" />
+
+                          </form>
                           @foreach (var teacher in Model)
                           {
                               <div class="listitem row">
